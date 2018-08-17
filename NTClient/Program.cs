@@ -14,7 +14,9 @@ namespace NTClient
 
             socket.Connect("localhost", 42420);
 
-            socket.Send(Encoding.UTF8.GetBytes(Enumerable.Repeat("spam", 1024).Aggregate("", (c, n) => c + " " + n) + "<EOF>"));
+            socket.Send(Encoding.UTF8.GetBytes(Enumerable.Range(1, 2048).Aggregate("", (c, n) => c + " " + n) + "<EOF>"));
+            socket.Shutdown(SocketShutdown.Both);
+            socket.Close();
 
             Console.ReadLine();
         }
